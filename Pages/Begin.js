@@ -5,17 +5,37 @@ import {
   View,
   ImageBackground,
   Image,
-  ScrollView
+  ScrollView,
+  Alert,
 } from 'react-native';
 import { Form, Button } from 'native-base';
 export default class Begin extends Component {
   static navigationOptions = {
     title: 'WEWANTED',
     headerStyle: {
-      backgroundColor: '#000'
+      backgroundColor: '#000',
     },
-    headerTintColor: '#fff'
+    headerTintColor: '#fff',
   };
+  giris_yapilmismi = () => {
+    fetch('http://192.168.112.2/wewanted/giris_yapilmismi.php')
+      .then((response) => response.json())
+      .then((responseJson) => {
+        if (responseJson !== 'no result') {
+          this.props.navigation.navigate('Bekle', {
+            email: responseJson,
+          });
+        } else {
+          Alert.alert("hata oluştu");
+        }
+      })
+      .catch((error) => {
+        console.log("hata");
+      });
+  };
+  componentDidMount() {
+    this.giris_yapilmismi();
+  }
   render() {
     return (
       <ImageBackground
@@ -43,9 +63,7 @@ export default class Begin extends Component {
                   style={styles.button}
                   full
                   rounded
-                  onPress={() =>
-                    this.props.navigation.navigate('Register')
-                  }
+                  onPress={() => this.props.navigation.navigate('Register')}
                 >
                   <Text style={{ color: '#fff' }}>Kayıt Ol</Text>
                 </Button>
@@ -61,30 +79,30 @@ const styles = StyleSheet.create({
   container: {
     margin: 24,
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   inner: {
     width: '80%',
     height: '80%',
     marginTop: 70,
-    color: '#fff'
+    color: '#fff',
   },
   image: {
     width: 300,
     height: 75,
-    marginTop: 130
+    marginTop: 130,
   },
 
   view: {
     color: '#fff',
     marginTop: 40,
-    fontSize: 30
+    fontSize: 30,
   },
 
   button: {
     backgroundColor: '#ff6f00',
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 15
-  }
+    marginTop: 15,
+  },
 });

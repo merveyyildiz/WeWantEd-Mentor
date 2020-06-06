@@ -24,6 +24,7 @@ import KursAcmaIstegiDetay from './Pages/KursAcmaIstegiDetay';
 import GelistiricilerDegisim from './Pages/GelisitiricilerDegisim';
 import KursAcmaIstegi from './Pages/KursAcmaIstegi';
 import Bekle from './Pages/Bekle';
+import Cikis from './Pages/Cikis';
 //Navigation Drawer Structure for all screen
 class NavigationDrawerStructure extends Component {
   toggleDrawer = () => {
@@ -248,7 +249,20 @@ const KursAcmaIstegiDetay_StackNavigator = createStackNavigator({
     }),
   },
 });
-
+const Cikis_StackNavigator = createStackNavigator({
+  //All the screen from the Third Option will be indexed here
+  Cikis: {
+    screen: Cikis,
+    navigationOptions: ({ navigation }) => ({
+      title: 'Cıkış',
+      headerLeft: <NavigationDrawerStructure navigationProps={navigation} />,
+      headerStyle: {
+        backgroundColor: '#f18d03',
+      },
+      headerTintColor: 'black',
+    }),
+  },
+});
 //Drawer Navigator for the Navigation Drawer / Sidebar
 const Drawer = createDrawerNavigator(
   {
@@ -272,6 +286,9 @@ const Drawer = createDrawerNavigator(
     },
     KursAcmaIstegiDetayScreen: {
       screen: KursAcmaIstegiDetay_StackNavigator,
+    },
+    Cikis: {
+      screen: Cikis_StackNavigator,
     },
   },
   {
